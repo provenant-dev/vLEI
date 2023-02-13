@@ -11,7 +11,10 @@ from keri.kering import ValidationError
                                       "legal-entity-vLEI-credential.json",
                                       "qualified-vLEI-issuer-vLEI-credential.json",
                                       "oor-authorization-vlei-credential.json",
-                                      "ecr-authorization-vlei-credential.json"])
+                                      "ecr-authorization-vlei-credential.json",
+                                      "tcr-vetting-credential.json",
+                                      "campaign-telephone-number-credential.json",
+                                      "campaign-credential.json"])
 @pytest.mark.parametrize("fmt", ["acdc"])
 def test_schema_example(fmt, filename):
     with open(f'{Path(__file__).parent}/../schema/{fmt}/{filename}', 'r') as schema, \
@@ -96,6 +99,23 @@ def test_ecr_chain():
     assert ecr['properties']['e']['oneOf'][2]['properties']['le']["properties"]['s']['const'] == __le()[
         coring.Ids.dollar]
 
+def test_tct_vetting_chain():
+    vetting = json.load(open(f'{__path()}/../schema/acdc/tcr-vetting-credential.json', 'r'))
+
+    assert vetting['properties']['e']['oneOf'][1]['properties']['le']["properties"]['s']['const'] == __le()[
+        coring.Ids.dollar]
+
+def test_campaign_tn_chain():
+    tn = json.load(open(f'{__path()}/../schema/acdc/campaign-telephone-number-credential.json', 'r'))
+
+    assert tn['properties']['e']['oneOf'][1]['properties']['le']["properties"]['s']['const'] == __le()[
+        coring.Ids.dollar]
+
+def test_campaign_chain():
+    campaign = json.load(open(f'{__path()}/../schema/acdc/campaign-credential.json', 'r'))
+
+    assert campaign['properties']['e']['oneOf'][1]['properties']['le']["properties"]['s']['const'] == __le()[
+        coring.Ids.dollar]
 
 def __le():
     return json.load(open(f'{__path()}/../schema/acdc/legal-entity-vLEI-credential.json', 'r'))
