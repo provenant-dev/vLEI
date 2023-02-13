@@ -62,6 +62,27 @@ def main():
     vira = generating.populateSAIDS(vira)
     __save(p, vira)
 
+    # TCR-vetting -> le edge
+    p = f'{path}/../../schema/acdc/tcr-vetting-credential.json'
+    vetting = __load(p)
+    vetting['properties']['e']['oneOf'][1]['properties']['le']["properties"]['s']['const'] = le[coring.Ids.dollar]
+    vetting = generating.populateSAIDS(vetting)
+    __save(p, vetting)
+
+    # campaign-TN -> le edge
+    p = f'{path}/../../schema/acdc/campaign-telephone-number-credential.json'
+    oorAuth = __load(p)
+    oorAuth['properties']['e']['oneOf'][1]['properties']['le']["properties"]['s']['const'] = le[coring.Ids.dollar]
+    oorAuth = generating.populateSAIDS(oorAuth)
+    __save(p, oorAuth)
+
+    # campaign -> le edge
+    p = f'{path}/../../schema/acdc/campaign-credential.json'
+    oorAuth = __load(p)
+    oorAuth['properties']['e']['oneOf'][1]['properties']['le']["properties"]['s']['const'] = le[coring.Ids.dollar]
+    oorAuth = generating.populateSAIDS(oorAuth)
+    __save(p, oorAuth)
+
 def __load(p):
     ff = open(p, 'r')
     jsn = json.load(ff)
