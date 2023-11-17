@@ -1,4 +1,4 @@
-FROM python:3.10.4-buster
+FROM python:3.10-buster
 
 RUN apt-get update
 RUN apt-get install -y ca-certificates
